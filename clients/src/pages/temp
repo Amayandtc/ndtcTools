@@ -1,0 +1,113 @@
+[media pointer="file-service://file-VPA9cFVdCud32ooPYbm4gq"]
+import React, { useEffect, useState } from 'react';
+import { FaCogs, FaRocket, FaStar, FaHandshake } from 'react-icons/fa';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const slides = [
+  {
+    image: '/images/slider1.png',
+    title: 'Your End-to-End Partner for Precision Tooling & Manufacturing',
+    subtitle: 'At SS Tools, we provide complete solutions — from mold design to final production — all under one roof to meet your industrial needs with efficiency and excellence.',
+  },
+];
+
+const blocks = [
+  { title: '🔧 Custom Mold Design & Manufacturing', note: 'We specialize in designing and manufacturing high-precision molds tailored to your unique product requirements — including injection molds, blow molds, compression molds, and more.' },
+];
+
+export default function Home() {
+  const [description, setDescription] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/pages/home')
+      .then((res) => setDescription(res.data.description))
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="font-sans">
+      {/* Top Contact Bar */}
+      <div className="bg-[#131d3b] text-white text-sm flex justify-between items-center px-6 py-2">
+        <div className="flex items-center space-x-6">
+          
+        </div>
+        <div className="flex items-center space-x-2">
+        <span>📞 +91-9739179490 / 7994409669</span>
+          <span>📧</span>
+          <span>nibinpattery@gmail.com</span>
+        </div>
+      </div>
+      {/* Logo and Menu */}
+      <header className="bg-white shadow-md py-3 px-10 flex justify-between items-center">
+        <div className="flex items-center">
+          <img src="/images/logo.png" alt="Logo" className="h-16 mr-4" />
+        </div>
+        <nav className="space-x-6 font-semibold">
+          <Link to="/" className="text-gray-800 hover:text-blue-500">Home</Link>
+          <Link to="/aboutus" className="text-gray-800 hover:text-blue-500">About Us</Link>
+          <Link to="/infrastructure" className="text-gray-800 hover:text-blue-500">Infrastructure</Link>
+          <Link to="/services" className="text-gray-800 hover:text-blue-500">Product & Services</Link>
+          <Link to="/contactus" className="text-gray-800 hover:text-blue-500">Contact Us</Link>
+        </nav>
+      </header>
+
+      {/* Hero Slider */}
+      <div className="relative h-[500px] overflow-hidden">
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              backgroundImage: `url(${slide.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            <div className="bg-black/60 h-full flex items-center text-white px-12">
+              <div className="max-w-3xl text-left">
+                <h2 className="text-5xl font-bold mb-4">{slide.title}</h2>
+                <p className="text-xl max-w-[75%] leading-relaxed">
+                  {slide.subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+
+      {/* About Section */}
+      <section className="py-16 px-8 bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
+          <div>
+            <h2 className="text-3xl font-bold mb-4">About Us</h2>
+            <p className="text-gray-700 mb-2">{description}</p>
+          </div>
+          <div>
+            <img src="/images/about.png" alt="About" className="rounded-lg shadow-lg" />
+          </div>
+        </div>
+      </section>
+
+     
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white text-center p-4">
+        &copy; 2025 NDTC
+      </footer>
+    </div>
+  );
+}
+
+this is my current code here i need an extra section like this for showing products with a ditternt style 
