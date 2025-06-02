@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const [description, setDescription] = useState('');
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/pages/home')
-      .then((res) => setDescription(res.data.description))
-      .catch((err) => console.error(err));
-  }, []);
-
-
-  return (
+    return (
     <div className="font-sans">
       {/* Top Contact Bar */}
       <div className="bg-[#131d3b] text-white text-sm flex justify-between items-center px-6 py-2">
@@ -41,11 +30,11 @@ export default function Home() {
       
 
       {/* About Section */}
-      <section className="py-16 px-8 bg-white">
+      <section className="bg-gray-300 mb-6 py-16 px-2 bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
           <div>
             <h2 className="text-3xl font-bold mb-4">About Us</h2>
-            <p className="text-gray-700 mb-2">{description}</p>
+            <p className="text-gray-700 mb-2">At NDTC Technology & Tools Pvt. Ltd., we specialize in high-precision tool and die making, with a strong focus on mold manufacturing. Based in the industrial hub of Bangalore, our company is committed to delivering innovative and reliable solutions that meet the evolving needs of the manufacturing sector. With a team of skilled professionals and state-of-the-art facilities, we ensure every mold is crafted with accuracy, efficiency, and durability. Our dedication to quality and customer satisfaction has made us a trusted partner for clients across various industries.</p>
           </div>
           <div>
             <img src="/images/about.png" alt="About" className="rounded-lg shadow-lg" />
@@ -63,7 +52,7 @@ export default function Home() {
               />
               <div>
                 <h3 className="text-lg font-semibold">Mr. Nibin Pattery</h3>
-                <p className="text-gray-600 text-sm">Founder & CEO, SS Tools</p>
+                <p className="text-gray-600 text-sm">Founder & CEO, NDTC Tools</p>
               </div>
             </div>
             <div className="text-sm text-gray-700 space-y-3">
