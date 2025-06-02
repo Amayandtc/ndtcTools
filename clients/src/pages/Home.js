@@ -8,9 +8,9 @@ import 'swiper/css/autoplay';
 import SwiperCore from 'swiper';
 import { Autoplay } from 'swiper/modules';
 import { useLocation } from 'react-router-dom';
+import { FiMenu, FiX } from "react-icons/fi";
 
 SwiperCore.use([Autoplay]);
-
 
 const slides = [
   {
@@ -74,6 +74,7 @@ const products = [
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const location = useLocation();
   useEffect(() => {
@@ -97,42 +98,67 @@ export default function Home() {
 
   return (
     <div className="font-sans">
-      {/* Top Contact Bar */}
-      <div className="bg-[#131d3b] text-white text-sm flex justify-between items-center px-6 py-2">
-        <div className="flex items-center space-x-6">
-          
-        </div>
-        <div className="flex items-center space-x-2">
-        <span>📞 +91-9739179490 / 7994409669</span>
-          <span>📧</span>
-          <span>nibinpattery@gmail.com</span>
+      {/* Top bar */}
+      <div className="bg-[#131d3b] text-white text-sm flex flex-col md:flex-row justify-between items-start md:items-center px-6 py-2 space-y-1 md:space-y-0">
+        <div className="flex items-center space-x-6"></div>
+        <div className="flex flex-col md:flex-row md:items-center md:space-x-2">
+          <span>📞 +91-9739179490 / 7994409669</span>
+          <span className="hidden md:inline">|</span>
+          <span>📧 nibinpattery@gmail.com</span>
         </div>
       </div>
-      {/* Logo and Menu */}
-      <header className="bg-white shadow-md py-3 px-10 flex justify-between items-center">
+
+      {/* Header */}
+      <header className="bg-white shadow-md py-3 px-6 flex justify-between items-center">
+        {/* Logo */}
         <div className="flex items-center">
           <img src="/images/logo.png" alt="Logo" className="h-16 mr-4" />
         </div>
-        <nav className="space-x-6 font-semibold">
+
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex space-x-6 font-semibold">
           <Link to="/" className="text-gray-800 hover:text-blue-500">Home</Link>
           <Link to="/aboutus" className="text-gray-800 hover:text-blue-500">About Us</Link>
           <Link to="/"
-              onClick={(e) => {
-                e.preventDefault();
-                const section = document.getElementById('services');
-                section?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="text-gray-800 hover:text-blue-500">Services</Link>
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="text-gray-800 hover:text-blue-500">Services</Link>
           <Link to="/"
-              onClick={(e) => {
-                e.preventDefault();
-                const section = document.getElementById('products');
-                section?.scrollIntoView({ behavior: 'smooth' });
-              }} className="text-gray-800 hover:text-blue-500">Product</Link>
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+            }} className="text-gray-800 hover:text-blue-500">Product</Link>
           <Link to="/contactus" className="text-gray-800 hover:text-blue-500">Contact Us</Link>
         </nav>
+
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+        </div>
       </header>
 
+      {/* Mobile Dropdown Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden px-6 pb-4 space-y-3 font-semibold bg-white shadow-md">
+          <Link to="/" className="block text-gray-800 hover:text-blue-500">Home</Link>
+          <Link to="/aboutus" className="block text-gray-800 hover:text-blue-500">About Us</Link>
+          <Link to="/" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+              setMobileMenuOpen(false);
+            }} className="block text-gray-800 hover:text-blue-500">Services</Link>
+          <Link to="/" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+              setMobileMenuOpen(false);
+            }} className="block text-gray-800 hover:text-blue-500">Product</Link>
+          <Link to="/contactus" className="block text-gray-800 hover:text-blue-500">Contact Us</Link>
+        </div>
+      )}
       {/* Hero Slider */}
       <div className="relative h-[500px] overflow-hidden">
         {slides.map((slide, index) => (
