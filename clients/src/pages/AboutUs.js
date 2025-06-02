@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { FiMenu, FiX } from "react-icons/fi";
+import React, { useState } from 'react';
 
 export default function Home() {
-    return (
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  return (
     <div className="font-sans">
       {/* Top Contact Bar */}
       <div className="bg-[#131d3b] text-white text-sm flex flex-col md:flex-row justify-between items-start md:items-center px-6 py-2 space-y-1 md:space-y-0">
@@ -92,7 +95,7 @@ export default function Home() {
                 <p className="text-gray-600 text-sm">Founder & CEO, NDTC Tools</p>
               </div>
             </div>
-            <div className="text-sm text-gray-700 space-y-3">
+            <div className="mt-6 text-sm text-gray-700 space-y-3">
               <p><strong>📍 Address:</strong> NDTC Tools, 123 Industrial Road, Bengaluru, Karnataka, India</p>
               <p><strong>📞 Phone:</strong> +91-9739179490</p>
               <p><strong>📞 Alt Phone:</strong> +91-7994409669</p>
